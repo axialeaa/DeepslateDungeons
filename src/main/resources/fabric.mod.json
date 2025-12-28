@@ -23,13 +23,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.axialeaa.modid.ExampleMod"
-		],
-		"client": [
-			"com.axialeaa.modid.ExampleModClient"
+			"com.axialeaa.deepslate_dungeons.DeepslateDungeons"
 		],
 		"fabric-datagen": [
-			"com.axialeaa.modid.data.ExampleModDataGenerator"
+			"com.axialeaa.deepslate_dungeons.data.DeepslateDungeonsDataGenerator"
 		]
 	},
 	"accessWidener" : "${id}.classtweaker",

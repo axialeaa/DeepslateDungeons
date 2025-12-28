@@ -1,0 +1,13 @@
+{
+    "required": true,
+    "package": "com.axialeaa.deepslate_dungeons.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "MonsterRoomFeatureMixin",
+        "StrongholdPieceMixin",
+        "StructurePieceImplMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+	}
+}
