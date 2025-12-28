@@ -29,7 +29,6 @@
 			"com.axialeaa.deepslate_dungeons.data.DeepslateDungeonsDataGenerator"
 		]
 	},
-	"accessWidener" : "${id}.classtweaker",
 	"custom": {
 		"modmenu": {
 			"links": {

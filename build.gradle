@@ -104,7 +104,6 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 loom {
-	accessWidenerPath = file("src/main/resources/${project.mod_id}.classtweaker")
 	runs {
 		client {
 			programArgs(["--username", "axialeaa", "--uuid", "dabdffa7-fdd2-4798-9f94-a518c7856163"])
