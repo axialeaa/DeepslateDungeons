@@ -3,7 +3,6 @@ package com.axialeaa.deepslate_dungeons.mixin;
 import com.axialeaa.deepslate_dungeons.DeepslateDungeons;
 import com.axialeaa.deepslate_dungeons.data.registry.DeepslateDungeonsGamerules;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gamerules.GameRules;
@@ -15,10 +14,9 @@ public abstract class StrongholdPieceMixin extends StructurePieceImplMixin {
 
     @Override
     public void placeBlockImpl(WorldGenLevel worldGenLevel, BlockState blockState, int i, int j, int k, BoundingBox boundingBox, Operation<Void> original) {
-        ServerLevel level = worldGenLevel.getLevel();
-        GameRules gameRules = level.getGameRules();
+        GameRules gameRules = worldGenLevel.getLevel().getGameRules();
 
-        if (this.getWorldY(j) <= gameRules.get(DeepslateDungeonsGamerules.STRONGHOLD_Y_THRESHOLD))
+        if (this.boundingBox.minY() <= gameRules.get(DeepslateDungeonsGamerules.STRONGHOLD_Y_THRESHOLD))
             blockState = DeepslateDungeons.deepStrongholdVariant(gameRules, blockState.getBlock()).withPropertiesOf(blockState);
 
         super.placeBlockImpl(worldGenLevel, blockState, i, j, k, boundingBox, original);

@@ -15,8 +15,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-import static com.axialeaa.deepslate_dungeons.data.registry.DeepslateDungeonsBlocks.*;
-
 public class DeepslateDungeons implements ModInitializer {
 
 	public static final String MOD_ID = "deepslate-dungeons";
@@ -34,7 +32,7 @@ public class DeepslateDungeons implements ModInitializer {
 		Blocks.STONE_BRICK_STAIRS, Blocks.DEEPSLATE_BRICK_STAIRS,
 		Blocks.MOSSY_STONE_BRICKS, Blocks.CRACKED_DEEPSLATE_BRICKS,
 		Blocks.CRACKED_STONE_BRICKS, Blocks.CRACKED_DEEPSLATE_BRICKS,
-		Blocks.INFESTED_STONE_BRICKS, INFESTED_DEEPSLATE_BRICKS
+		Blocks.INFESTED_STONE_BRICKS, DeepslateDungeonsBlocks.INFESTED_DEEPSLATE_BRICKS
 	);
 
 	public static final ImmutableMap<Block, Block> STRONGHOLD_OAK_VARIANT_MAP = ImmutableMap.of(
@@ -56,10 +54,10 @@ public class DeepslateDungeons implements ModInitializer {
 		DeepslateDungeonsGamerules.init();
 
 		ItemGroupEvents.MODIFY_ENTRIES_ALL.register((tab, entries) -> {
-			entries.addAfter(Items.INFESTED_DEEPSLATE, INFESTED_COBBLED_DEEPSLATE);
-			entries.addAfter(INFESTED_COBBLED_DEEPSLATE, INFESTED_DEEPSLATE_BRICKS);
-			entries.addAfter(INFESTED_DEEPSLATE_BRICKS, INFESTED_CRACKED_DEEPSLATE_BRICKS);
-			entries.addAfter(INFESTED_CRACKED_DEEPSLATE_BRICKS, INFESTED_CHISELED_DEEPSLATE);
+			entries.addAfter(Items.INFESTED_DEEPSLATE, DeepslateDungeonsBlocks.INFESTED_COBBLED_DEEPSLATE);
+			entries.addAfter(DeepslateDungeonsBlocks.INFESTED_COBBLED_DEEPSLATE, DeepslateDungeonsBlocks.INFESTED_DEEPSLATE_BRICKS);
+			entries.addAfter(DeepslateDungeonsBlocks.INFESTED_DEEPSLATE_BRICKS, DeepslateDungeonsBlocks.INFESTED_CRACKED_DEEPSLATE_BRICKS);
+			entries.addAfter(DeepslateDungeonsBlocks.INFESTED_CRACKED_DEEPSLATE_BRICKS, DeepslateDungeonsBlocks.INFESTED_CHISELED_DEEPSLATE);
 		});
 	}
 

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(StructurePiece.class)
 public abstract class StructurePieceImplMixin {
 
-    @Shadow protected abstract int getWorldY(int i);
+    @Shadow protected BoundingBox boundingBox;
 
     @WrapMethod(method = "placeBlock")
     public void placeBlockImpl(WorldGenLevel worldGenLevel, BlockState blockState, int i, int j, int k, BoundingBox boundingBox, Operation<Void> original) {
