@@ -7,12 +7,13 @@ import net.minecraft.world.level.gamerules.GameRuleCategory;
 
 public interface DeepslateDungeonsGamerules {
 
-    GameRuleCategory CATEGORY = GameRuleCategory.register(DeepslateDungeons.id("config"));
+    GameRuleCategory CATEGORY = GameRuleCategory.register(DeepslateDungeons.id("gamerules"));
 
     GameRule<Integer> STRONGHOLD_Y_THRESHOLD = registerUnboundedInt("stronghold_y_threshold", 0);
     GameRule<Integer> DUNGEON_ORIGIN_Y_THRESHOLD = registerUnboundedInt("dungeon_origin_y_threshold", 0);
     GameRule<Boolean> STRONGHOLD_CONVERT_OAK = registerBoolean("stronghold_convert_oak", true);
     GameRule<Boolean> STRONGHOLD_CONVERT_TORCHES = registerBoolean("stronghold_convert_torches", false);
+    GameRule<Boolean> CHISELED_BOOKSHELVES_IN_LIBRARY = registerBoolean("chiseled_bookshelves_in_library", false);
 
     private static GameRule<Boolean> registerBoolean(String path, boolean defaultValue) {
         return register(GameRuleBuilder.forBoolean(defaultValue), path);

@@ -1,3 +1,4 @@
 {
-  "block.deepslate-dungeons.infested_chiseled_deepslate": "Infested Chiselled Deepslate"
+  "block.deepslate-dungeons.infested_chiseled_deepslate": "Infested Chiselled Deepslate",
+  "gamerule.deepslate-dungeons.chiseled_bookshelves_in_library": "Whether stronghold libraries generate chiselled bookshelves"
 }

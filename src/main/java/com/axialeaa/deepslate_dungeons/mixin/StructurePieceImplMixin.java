@@ -15,8 +15,8 @@ public abstract class StructurePieceImplMixin {
     @Shadow protected BoundingBox boundingBox;
 
     @WrapMethod(method = "placeBlock")
-    public void placeBlockImpl(WorldGenLevel worldGenLevel, BlockState blockState, int i, int j, int k, BoundingBox boundingBox, Operation<Void> original) {
-        original.call(worldGenLevel, blockState, i, j, k, boundingBox);
+    public void placeBlockImpl(WorldGenLevel worldGenLevel, BlockState blockState, int x, int y, int z, BoundingBox boundingBox, Operation<Void> original) {
+        original.call(worldGenLevel, blockState, x, y, z, boundingBox);
     }
 
 }

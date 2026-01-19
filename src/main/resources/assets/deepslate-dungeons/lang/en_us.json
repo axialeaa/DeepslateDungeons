@@ -3,9 +3,10 @@
     "block.deepslate-dungeons.infested_cobbled_deepslate": "Infested Cobbled Deepslate",
     "block.deepslate-dungeons.infested_cracked_deepslate_bricks": "Infested Cracked Deepslate Bricks",
     "block.deepslate-dungeons.infested_deepslate_bricks": "Infested Deepslate Bricks",
-    "gamerule.category.deepslate-dungeons.config": "Deepslate Dungeons",
-    "gamerule.deepslate-dungeons.dungeon_origin_y_threshold": "The maximum Y level dungeons need to generate at in order to convert to deepslate",
-    "gamerule.deepslate-dungeons.stronghold_convert_oak": "Whether deep strongholds should convert oak into dark oak",
-    "gamerule.deepslate-dungeons.stronghold_convert_torches": "Whether deep strongholds should convert torches into soul torches",
-    "gamerule.deepslate-dungeons.stronghold_y_threshold": "The maximum Y level strongholds should start converting to deepslate at"
+    "gamerule.category.deepslate-dungeons.gamerules": "Deepslate Dungeons",
+    "gamerule.deepslate-dungeons.chiseled_bookshelves_in_library": "Whether stronghold libraries generate chiseled bookshelves",
+    "gamerule.deepslate-dungeons.dungeon_origin_y_threshold": "The max Y level deep dungeons generate at",
+    "gamerule.deepslate-dungeons.stronghold_convert_oak": "Whether deep strongholds convert oak into dark oak",
+    "gamerule.deepslate-dungeons.stronghold_convert_torches": "Whether deep strongholds convert torches into soul torches",
+    "gamerule.deepslate-dungeons.stronghold_y_threshold": "The max Y level deep strongholds generate at"
 }

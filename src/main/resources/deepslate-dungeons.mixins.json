@@ -3,11 +3,13 @@
     "package": "com.axialeaa.deepslate_dungeons.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
+        "LibraryMixin",
+        "LootTableAccessor",
         "MonsterRoomFeatureMixin",
         "StrongholdPieceMixin",
         "StructurePieceImplMixin"
     ],
     "injectors": {
         "defaultRequire": 1
-	}
+    }
 }
