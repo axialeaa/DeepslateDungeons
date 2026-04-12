@@ -7,7 +7,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gamerules.GameRules;
 
-public class ConversionHelper {
+/**
+ * Roadmap: make this data-driven at some point!
+ */
+public final class ConversionHelper {
 
     private static final ImmutableMap<Block, Block> STRONGHOLD_STONE_VARIANT_MAP = ImmutableMap.of(
         Blocks.COBBLESTONE, Blocks.COBBLED_DEEPSLATE,

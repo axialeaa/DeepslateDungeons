@@ -9,7 +9,7 @@ public interface ModGameRules {
 
     GameRuleCategory CATEGORY = GameRuleCategory.register(DeepslateDungeons.id("gamerules"));
 
-    GameRule<Integer> STRONGHOLD_Y_THRESHOLD = registerUnboundedInt("stronghold_y_threshold", 0);
+    GameRule<Integer> STRONGHOLD_ROOM_Y_THRESHOLD = registerUnboundedInt("stronghold_room_y_threshold", 0);
     GameRule<Integer> DUNGEON_ORIGIN_Y_THRESHOLD = registerUnboundedInt("dungeon_origin_y_threshold", 0);
     GameRule<Boolean> STRONGHOLD_CONVERT_OAK = registerBoolean("stronghold_convert_oak", true);
     GameRule<Boolean> STRONGHOLD_CONVERT_TORCHES = registerBoolean("stronghold_convert_torches", false);

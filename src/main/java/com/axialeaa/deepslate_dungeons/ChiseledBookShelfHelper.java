@@ -21,7 +21,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import java.util.List;
 
-public class ChiseledBookShelfHelper {
+public final class ChiseledBookShelfHelper {
 
     public static BlockState getBlockState(Direction facing, Mirror mirror, Rotation rotation) {
         BlockState blockState = Blocks.CHISELED_BOOKSHELF.defaultBlockState().setValue(ChiseledBookShelfBlock.FACING, facing);
