@@ -1,18 +1,15 @@
-package com.axialeaa.deepslate_dungeons.mixin;
+package com.axialeaa.deepslate_dungeons.mixin.bookshelf;
 
 import com.axialeaa.deepslate_dungeons.ChiseledBookShelfHelper;
-import com.axialeaa.deepslate_dungeons.data.registry.DeepslateDungeonsGamerules;
+import com.axialeaa.deepslate_dungeons.data.registry.ModGameRules;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ChiseledBookShelfBlock;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
@@ -34,12 +31,12 @@ public abstract class LibraryMixin extends StructurePiece {
     }
 
     @WrapOperation(method = "postProcess", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/structure/structures/StrongholdPieces$Library;generateBox(Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIIIIILnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Z)V"))
-    private void convertOuterBookshelvesToChiseled(StrongholdPieces.Library instance, WorldGenLevel worldGenLevel, BoundingBox boundingBox, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, BlockState blockState, BlockState blockState2, boolean b, Operation<Void> original, @Local(argsOnly = true) RandomSource randomSource) {
+    private void convertOuterBookshelvesToChiseled(StrongholdPieces.Library instance, WorldGenLevel worldGenLevel, BoundingBox boundingBox, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, BlockState blockState, BlockState blockState2, boolean b, Operation<Void> original, @Local(argsOnly = true, name = "random") RandomSource random) {
         GameRules gameRules = worldGenLevel.getLevel().getGameRules();
-        boolean enabled = gameRules.get(DeepslateDungeonsGamerules.CHISELED_BOOKSHELVES_IN_LIBRARY);
+        boolean enabled = gameRules.get(ModGameRules.CHISELED_BOOKSHELVES_IN_LIBRARY);
 
-        if ((minX == EAST_OUTER_X || minX == WEST_OUTER_X) && blockState.is(Blocks.BOOKSHELF) && enabled) {
-            this.generateBookshelfBox(worldGenLevel, boundingBox, minX, minY, minZ, maxX, maxY, maxZ, randomSource);
+        if (isOuterBookshelf(minX) && blockState.is(Blocks.BOOKSHELF) && enabled) {
+            this.generateBookshelfBox(worldGenLevel, boundingBox, minX, minY, minZ, maxX, maxY, maxZ, random);
             return;
         }
 
@@ -47,27 +44,18 @@ public abstract class LibraryMixin extends StructurePiece {
     }
 
     @Unique
+    private static boolean isOuterBookshelf(int x) {
+        return x == EAST_OUTER_X || x == WEST_OUTER_X;
+    }
+
+    @Unique
     private void generateBookshelfBox(WorldGenLevel worldGenLevel, BoundingBox boundingBox, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, RandomSource randomSource) {
         MinecraftServer server = worldGenLevel.getServer();
 
-        if (server == null)
-            return;
-
         Direction facing = minX == WEST_OUTER_X ? Direction.EAST : Direction.WEST;
-        BlockState blockState = Blocks.CHISELED_BOOKSHELF.defaultBlockState().setValue(ChiseledBookShelfBlock.FACING, facing);
+        BlockState blockState = ChiseledBookShelfHelper.getBlockState(facing, this.getMirror(), this.getRotation());
 
-        for (int y = minY; y <= maxY; y++) {
-            for (int x = minX; x <= maxX; x++) {
-                for (int z = minZ; z <= maxZ; z++) {
-                    BlockPos.MutableBlockPos blockPos = this.getWorldPos(x, y, z);
-                    this.placeBlock(worldGenLevel, blockState, x, y, z, boundingBox);
-
-                    worldGenLevel.getBlockEntity(blockPos, BlockEntityType.CHISELED_BOOKSHELF).ifPresent(blockEntity ->
-                        ChiseledBookShelfHelper.fillBookshelfLoot(worldGenLevel, server, blockPos, blockState, blockEntity, randomSource)
-                    );
-                }
-            }
-        }
+        ChiseledBookShelfHelper.generate(worldGenLevel, server, blockState, boundingBox, minX, minY, minZ, maxX, maxY, maxZ, this::getWorldPos, randomSource);
     }
 
 }

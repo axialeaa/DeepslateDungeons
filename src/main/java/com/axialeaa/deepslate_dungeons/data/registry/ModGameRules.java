@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
 import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 
-public interface DeepslateDungeonsGamerules {
+public interface ModGameRules {
 
     GameRuleCategory CATEGORY = GameRuleCategory.register(DeepslateDungeons.id("gamerules"));
 

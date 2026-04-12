@@ -1,4 +1,4 @@
-package com.axialeaa.deepslate_dungeons.mixin;
+package com.axialeaa.deepslate_dungeons.mixin.bookshelf;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.util.RandomSource;
@@ -14,9 +14,9 @@ import java.util.List;
 public interface LootTableAccessor {
 
     @Invoker("shuffleAndSplitItems")
-    void invokeShuffleAndSplitItems(ObjectArrayList<ItemStack> objectArrayList, int i, RandomSource randomSource);
+    void invokeShuffleAndSplitItems(ObjectArrayList<ItemStack> result, int availableSlots, RandomSource random);
 
     @Invoker("getAvailableSlots")
-    List<Integer> invokeGetAvailableSlots(Container container, RandomSource randomSource);
+    List<Integer> invokeGetAvailableSlots(Container container, RandomSource random);
 
 }

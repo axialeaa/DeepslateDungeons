@@ -1,17 +1,19 @@
 package com.axialeaa.deepslate_dungeons;
 
-import com.axialeaa.deepslate_dungeons.data.registry.DeepslateDungeonsLoot;
-import com.axialeaa.deepslate_dungeons.mixin.LootTableAccessor;
+import com.axialeaa.deepslate_dungeons.data.registry.ModLootTables;
+import com.axialeaa.deepslate_dungeons.mixin.bookshelf.LootTableAccessor;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ChiseledBookShelfBlock;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -21,25 +23,55 @@ import java.util.List;
 
 public class ChiseledBookShelfHelper {
 
-    public static void fillBookshelfLoot(WorldGenLevel worldGenLevel, MinecraftServer server, BlockPos blockPos, BlockState blockState, ChiseledBookShelfBlockEntity blockEntity, RandomSource randomSource) {
-        LootTable lootTable = server.reloadableRegistries().getLootTable(DeepslateDungeonsLoot.STRONGHOLD_LIBRARY_BOOKSHELF);
-        LootParams.Builder lootParams = new LootParams.Builder(worldGenLevel.getLevel()).withParameter(LootContextParams.ORIGIN, blockPos.getCenter());
+    public static BlockState getBlockState(Direction facing, Mirror mirror, Rotation rotation) {
+        BlockState blockState = Blocks.CHISELED_BOOKSHELF.defaultBlockState().setValue(ChiseledBookShelfBlock.FACING, facing);
 
-        ObjectArrayList<ItemStack> randomItems = lootTable.getRandomItems(lootParams.create(LootContextParamSets.CHEST), randomSource);
+        if (mirror != Mirror.NONE)
+            blockState = blockState.mirror(mirror);
 
-        if (lootTable instanceof LootTableAccessor lootTableAccessor) {
-            List<Integer> availableSlots = lootTableAccessor.invokeGetAvailableSlots(blockEntity, randomSource);
-            lootTableAccessor.invokeShuffleAndSplitItems(randomItems, availableSlots.size(), randomSource);
+        if (rotation != Rotation.NONE)
+            blockState = blockState.rotate(rotation);
 
-            setLoot(worldGenLevel, blockPos, blockState, blockEntity, randomItems, availableSlots);
+        return blockState;
+    }
+
+    public static void generate(WorldGenLevel level, MinecraftServer server, BlockState state, BoundingBox box, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, WorldPosGetter getter, RandomSource random) {
+        for (int y = minY; y <= maxY; y++) {
+            for (int x = minX; x <= maxX; x++) {
+                for (int z = minZ; z <= maxZ; z++) {
+                    BlockPos blockPos = getter.get(x, y, z);
+
+                    if (box.isInside(blockPos)) {
+                        level.setBlock(blockPos, state, Block.UPDATE_CLIENTS);
+                        level.getBlockEntity(blockPos, BlockEntityType.CHISELED_BOOKSHELF)
+                            .ifPresent(blockEntity -> setLoot(level, server, blockPos, blockEntity, random));
+                    }
+                }
+            }
         }
     }
 
-    private static void setLoot(WorldGenLevel worldGenLevel, BlockPos blockPos, BlockState blockState, ChiseledBookShelfBlockEntity blockEntity, ObjectArrayList<ItemStack> randomItems, List<Integer> availableSlots) {
-        for (ItemStack itemStack : randomItems) {
-            if (availableSlots.isEmpty())
-                continue;
+    private static void setLoot(WorldGenLevel level, MinecraftServer server, BlockPos pos, ChiseledBookShelfBlockEntity blockEntity, RandomSource random) {
+        LootTable lootTable = server.reloadableRegistries().getLootTable(ModLootTables.STRONGHOLD_LIBRARY_BOOKSHELF);
 
+        if (lootTable instanceof LootTableAccessor accessor) {
+            LootParams.Builder lootParams = new LootParams.Builder(level.getLevel()).withParameter(LootContextParams.ORIGIN, pos.getCenter());
+            ObjectArrayList<ItemStack> randomItems = lootTable.getRandomItems(lootParams.create(LootContextParamSets.CHEST), pos.asLong());
+
+            List<Integer> availableSlots = accessor.invokeGetAvailableSlots(blockEntity, random);
+            accessor.invokeShuffleAndSplitItems(randomItems, availableSlots.size(), random);
+
+            setLoot(level, pos, blockEntity, randomItems, availableSlots);
+        }
+    }
+
+    private static void setLoot(WorldGenLevel level, BlockPos pos, ChiseledBookShelfBlockEntity blockEntity, ObjectArrayList<ItemStack> randomItems, List<Integer> availableSlots) {
+        BlockState blockState = blockEntity.getBlockState();
+
+        if (availableSlots.isEmpty())
+            return;
+
+        for (ItemStack itemStack : randomItems) {
             int index = availableSlots.removeLast();
 
             if (blockEntity.acceptsItemType(itemStack)) {
@@ -48,7 +80,17 @@ public class ChiseledBookShelfHelper {
             }
         }
 
-        worldGenLevel.setBlock(blockPos, blockState, Block.UPDATE_CLIENTS);
+        level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+    }
+
+    /**
+     * @see net.minecraft.world.level.levelgen.structure.StructurePiece#getWorldPos(int, int, int)
+     */
+    @FunctionalInterface
+    public interface WorldPosGetter {
+
+        BlockPos get(int x, int y, int z);
+
     }
 
 }

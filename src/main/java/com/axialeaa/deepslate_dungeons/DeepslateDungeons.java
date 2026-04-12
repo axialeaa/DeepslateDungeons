@@ -1,15 +1,17 @@
 package com.axialeaa.deepslate_dungeons;
 
-import com.axialeaa.deepslate_dungeons.data.registry.DeepslateDungeonsBlocks;
-import com.axialeaa.deepslate_dungeons.data.registry.DeepslateDungeonsGamerules;
-import com.axialeaa.deepslate_dungeons.data.registry.DeepslateDungeonsLoot;
+import com.axialeaa.deepslate_dungeons.data.registry.ModBlocks;
+import com.axialeaa.deepslate_dungeons.data.registry.ModGameRules;
+import com.axialeaa.deepslate_dungeons.data.registry.ModLootTables;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.axialeaa.deepslate_dungeons.data.registry.ModBlocks.*;
 
 public class DeepslateDungeons implements ModInitializer {
 
@@ -22,15 +24,15 @@ public class DeepslateDungeons implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("{} initialized! Deep are the dungeons that bear the dragons...", MOD_NAME);
 
-		DeepslateDungeonsBlocks.init();
-		DeepslateDungeonsGamerules.init();
-		DeepslateDungeonsLoot.init();
+		ModBlocks.init();
+		ModGameRules.init();
+		ModLootTables.init();
 
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
-			entries.addAfter(Items.INFESTED_DEEPSLATE, DeepslateDungeonsBlocks.INFESTED_COBBLED_DEEPSLATE);
-			entries.addAfter(DeepslateDungeonsBlocks.INFESTED_COBBLED_DEEPSLATE, DeepslateDungeonsBlocks.INFESTED_DEEPSLATE_BRICKS);
-			entries.addAfter(DeepslateDungeonsBlocks.INFESTED_DEEPSLATE_BRICKS, DeepslateDungeonsBlocks.INFESTED_CRACKED_DEEPSLATE_BRICKS);
-			entries.addAfter(DeepslateDungeonsBlocks.INFESTED_CRACKED_DEEPSLATE_BRICKS, DeepslateDungeonsBlocks.INFESTED_CHISELED_DEEPSLATE);
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
+			entries.insertAfter(Items.INFESTED_DEEPSLATE, INFESTED_COBBLED_DEEPSLATE);
+			entries.insertAfter(INFESTED_COBBLED_DEEPSLATE, INFESTED_DEEPSLATE_BRICKS);
+			entries.insertAfter(INFESTED_DEEPSLATE_BRICKS, INFESTED_CRACKED_DEEPSLATE_BRICKS);
+			entries.insertAfter(INFESTED_CRACKED_DEEPSLATE_BRICKS, INFESTED_CHISELED_DEEPSLATE);
 		});
 	}
 

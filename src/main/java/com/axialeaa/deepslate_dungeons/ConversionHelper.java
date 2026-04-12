@@ -1,14 +1,11 @@
 package com.axialeaa.deepslate_dungeons;
 
-import com.axialeaa.deepslate_dungeons.data.registry.DeepslateDungeonsBlocks;
+import com.axialeaa.deepslate_dungeons.data.registry.ModBlocks;
+import com.axialeaa.deepslate_dungeons.data.registry.ModGameRules;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gamerules.GameRules;
-
-import java.util.Optional;
-
-import static com.axialeaa.deepslate_dungeons.data.registry.DeepslateDungeonsGamerules.*;
 
 public class ConversionHelper {
 
@@ -22,7 +19,7 @@ public class ConversionHelper {
         Blocks.STONE_BRICK_STAIRS, Blocks.DEEPSLATE_BRICK_STAIRS,
         Blocks.MOSSY_STONE_BRICKS, Blocks.CRACKED_DEEPSLATE_BRICKS,
         Blocks.CRACKED_STONE_BRICKS, Blocks.CRACKED_DEEPSLATE_BRICKS,
-        Blocks.INFESTED_STONE_BRICKS, DeepslateDungeonsBlocks.INFESTED_DEEPSLATE_BRICKS
+        Blocks.INFESTED_STONE_BRICKS, ModBlocks.INFESTED_DEEPSLATE_BRICKS
     );
 
     private static final ImmutableMap<Block, Block> STRONGHOLD_OAK_VARIANT_MAP = ImmutableMap.of(
@@ -37,10 +34,16 @@ public class ConversionHelper {
     );
 
     public static Block getDeepStrongholdVariant(GameRules gameRules, Block block) {
-        return Optional.ofNullable(STRONGHOLD_STONE_VARIANT_MAP.get(block))
-            .or(() -> Optional.ofNullable(gameRules.get(STRONGHOLD_CONVERT_OAK) ? STRONGHOLD_OAK_VARIANT_MAP.get(block) : null))
-            .or(() -> Optional.ofNullable(gameRules.get(STRONGHOLD_CONVERT_TORCHES) ? STRONGHOLD_TORCH_VARIANT_MAP.get(block) : null))
-            .orElse(block);
+        if (STRONGHOLD_STONE_VARIANT_MAP.containsKey(block))
+            return STRONGHOLD_STONE_VARIANT_MAP.get(block);
+
+        if (gameRules.get(ModGameRules.STRONGHOLD_CONVERT_OAK) && STRONGHOLD_OAK_VARIANT_MAP.containsKey(block))
+            return STRONGHOLD_OAK_VARIANT_MAP.get(block);
+
+        if (gameRules.get(ModGameRules.STRONGHOLD_CONVERT_TORCHES) && STRONGHOLD_TORCH_VARIANT_MAP.containsKey(block))
+            return STRONGHOLD_TORCH_VARIANT_MAP.get(block);
+
+        return block;
     }
 
 }

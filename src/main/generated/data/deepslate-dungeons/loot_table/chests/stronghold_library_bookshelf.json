@@ -6,12 +6,12 @@
       "entries": [
         {
           "type": "minecraft:empty",
-          "weight": 200
+          "weight": 70
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:book",
-          "weight": 49
+          "weight": 69
         },
         {
           "type": "minecraft:item",

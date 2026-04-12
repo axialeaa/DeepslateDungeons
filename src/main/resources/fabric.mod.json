@@ -3,7 +3,7 @@
 	"id": "${id}",
 	"version": "${version}",
 	"name": "${name}",
-	"description": "${desc}",
+	"description": "${description}",
 	"authors": [
 		{
 			"name": "axialeaa",
@@ -12,11 +12,18 @@
 			}
 		}
 	],
-	"contributors": [],
+	"contributors": [
+		{
+			"name": "SeriousFreezing (pt_BR translations)",
+			"contact": {
+				"homepage": "https://github.com/seriousfreezing"
+			}
+		}
+	],
 	"contact": {
-		"homepage": "https://modrinth.com/mod/${modrinth}",
-		"sources": "https://github.com/${repo}",
-		"issues": "https://github.com/${repo}/issues"
+		"homepage": "https://modrinth.com/mod/${id}",
+		"sources": "https://github.com/${repository}",
+		"issues": "https://github.com/${repository}/issues"
 	},
 	"license": "LGPLv3",
 	"icon": "assets/${id}/icon.png",
@@ -26,13 +33,13 @@
 			"com.axialeaa.deepslate_dungeons.DeepslateDungeons"
 		],
 		"fabric-datagen": [
-			"com.axialeaa.deepslate_dungeons.data.DeepslateDungeonsDataGenerator"
+            "com.axialeaa.deepslate_dungeons.data.ModDataGenerator"
 		]
 	},
 	"custom": {
 		"modmenu": {
 			"links": {
-				"modmenu.github_releases": "https://github.com/${repo}/releases",
+				"modmenu.github_releases": "https://github.com/${repository}/releases",
 				"modmenu.modrinth": "https://modrinth.com/mod/${id}"
 			}
 		}
@@ -44,6 +51,6 @@
 		"fabricloader": ">=${loader}",
 		"minecraft": "${target}",
 		"java": ">=${java}",
-		"fabric": "*"
+		"fabric-api": "*"
 	}
 }

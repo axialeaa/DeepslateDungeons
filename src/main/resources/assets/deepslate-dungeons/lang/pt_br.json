@@ -1,0 +1,11 @@
+{
+    "block.deepslate-dungeons.infested_chiseled_deepslate": "Ardosiabissal Talhada Infestada",
+    "block.deepslate-dungeons.infested_cobbled_deepslate": "Pedregulho de Ardosiabissal Infestado",
+    "block.deepslate-dungeons.infested_cracked_deepslate_bricks": "Tijolos de Ardosiabissal Rachados Infestados",
+    "block.deepslate-dungeons.infested_deepslate_bricks": "Tijolos de Ardosiabissal Infestados",
+    "gamerule.deepslate-dungeons.chiseled_bookshelves_in_library": "Se as bibliotecas da stronghold geram porta-livros",
+    "gamerule.deepslate-dungeons.dungeon_origin_y_threshold": "O nível Y máximo que as masmorras profundas é gerado em",
+    "gamerule.deepslate-dungeons.stronghold_convert_oak": "Se as strongholds profundas convertem o carvalho em carvalho escuro",
+    "gamerule.deepslate-dungeons.stronghold_convert_torches": "Se as strongholds profundas convertem tochas em tochas das almas",
+    "gamerule.deepslate-dungeons.stronghold_y_threshold": "O nível Y máximo que as strongholds profundas é gerado em"
+}
