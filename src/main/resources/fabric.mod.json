@@ -18,7 +18,13 @@
 			"contact": {
 				"homepage": "https://github.com/seriousfreezing"
 			}
-		}
+		},
+        {
+            "name": "Flatkat (es_ES translations)",
+            "contact": {
+                "homepage": "https://github.com/FlatKat"
+            }
+        }
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/${id}",

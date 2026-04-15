@@ -1,0 +1,12 @@
+{
+    "block.deepslate-dungeons.infested_chiseled_deepslate": "Pizarra profunda cincelada infestada",
+    "block.deepslate-dungeons.infested_cobbled_deepslate": "Pizarra profunda rocosa infestad",
+    "block.deepslate-dungeons.infested_cracked_deepslate_bricks": "Ladrillos de pizarra profunda agrietados infestados",
+    "block.deepslate-dungeons.infested_deepslate_bricks": "Ladrillos de piedra profunda infestados",
+    "gamerule.category.deepslate-dungeons.gamerules": "Mazmorras de pizarra profunda",
+    "gamerule.deepslate-dungeons.chiseled_bookshelves_in_library": "Controla si las bibliotecas de las fortalezas generan generate chiseled bookshelves",
+    "gamerule.deepslate-dungeons.dungeon_origin_y_threshold": "La altura máxima a la que se generan variantes de mazmorras de pizarra profunda",
+    "gamerule.deepslate-dungeons.stronghold_convert_oak": "Controla si las variantes de fortalezas de pizarra profunda reemplazan el roble por roble oscuro",
+    "gamerule.deepslate-dungeons.stronghold_convert_torches": "Controla si las variantes de fortalezas de pizarra profunda incluyen antorchas de alma",
+    "gamerule.deepslate-dungeons.stronghold_room_y_threshold": "La altura máxima a la que se generan variantes de pizarra profunda de salas de fortaleza"
+}
