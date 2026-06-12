@@ -28,7 +28,7 @@
 </p>
 
 <p align=center>
-    <b>Deepslate Dungeons</b> aims to level up the environmental storytelling of the game by switching up the block palettes of all dungeon/stronghold rooms below y = 0 for deepslate variants! This also helps to reduce thematic clashing when you're deep underground.
+    <b>Deepslate Dungeons</b> improves the environmental storytelling of the game by switching up the block palettes of all dungeon/stronghold rooms below y = 0 for deepslate variants! This also helps to reduce thematic clashing when you're deep underground.
 </p>
 
 <h2><p align=center>🎨 Customization</p></h2>
