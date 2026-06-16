@@ -1,5 +1,6 @@
 package com.axialeaa.deepslate_dungeons.data.provider;
 
+import com.axialeaa.deepslate_dungeons.data.registry.ModBlocks.References;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
@@ -7,8 +8,6 @@ import net.minecraft.tags.BlockTags;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
-
-import static com.axialeaa.deepslate_dungeons.data.registry.ModBlocks.*;
 
 public class ModBlockTagsProvider extends FabricTagsProvider.BlockTagsProvider {
 
@@ -18,11 +17,11 @@ public class ModBlockTagsProvider extends FabricTagsProvider.BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NonNull Provider provider) {
-        this.valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(
-            INFESTED_COBBLED_DEEPSLATE,
-            INFESTED_DEEPSLATE_BRICKS,
-            INFESTED_CRACKED_DEEPSLATE_BRICKS,
-            INFESTED_CHISELED_DEEPSLATE
+        this.builder(BlockTags.MINEABLE_WITH_PICKAXE).add(
+            References.INFESTED_COBBLED_DEEPSLATE,
+            References.INFESTED_DEEPSLATE_BRICKS,
+            References.INFESTED_CRACKED_DEEPSLATE_BRICKS,
+            References.INFESTED_CHISELED_DEEPSLATE
         );
     }
 

@@ -39,7 +39,7 @@
 			"com.axialeaa.deepslate_dungeons.DeepslateDungeons"
 		],
 		"fabric-datagen": [
-            "com.axialeaa.deepslate_dungeons.data.ModDataGenerator"
+            "com.axialeaa.deepslate_dungeons.data.DeepslateDungeonsDataGenerator"
 		]
 	},
 	"custom": {

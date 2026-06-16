@@ -5,14 +5,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-public interface ModLootTables {
+public final class ModLootTables {
 
-    ResourceKey<LootTable> STRONGHOLD_LIBRARY_BOOKSHELF = create("chests/stronghold_library_bookshelf");
+    public static final ResourceKey<LootTable> STRONGHOLD_LIBRARY_BOOKSHELF = create("chests/stronghold_library_bookshelf");
 
-    private static ResourceKey<LootTable> create(String path) {
-        return ResourceKey.create(Registries.LOOT_TABLE, DeepslateDungeons.id(path));
+    public static ResourceKey<LootTable> create(String path) {
+        return DeepslateDungeons.resourceKey(Registries.LOOT_TABLE, path);
     }
-
-    static void init() {}
 
 }

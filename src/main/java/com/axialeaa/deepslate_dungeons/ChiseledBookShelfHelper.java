@@ -10,7 +10,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
@@ -18,6 +18,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public final class ChiseledBookShelfHelper {
 
                     if (box.isInside(blockPos)) {
                         level.setBlock(blockPos, state, Block.UPDATE_CLIENTS);
-                        level.getBlockEntity(blockPos, BlockEntityType.CHISELED_BOOKSHELF)
+                        level.getBlockEntity(blockPos, BlockEntityTypes.CHISELED_BOOKSHELF)
                             .ifPresent(blockEntity -> setLoot(level, server, blockPos, blockEntity, random));
                     }
                 }
@@ -55,7 +56,7 @@ public final class ChiseledBookShelfHelper {
         LootTable lootTable = server.reloadableRegistries().getLootTable(ModLootTables.STRONGHOLD_LIBRARY_BOOKSHELF);
 
         if (lootTable instanceof LootTableAccessor accessor) {
-            LootParams.Builder lootParams = new LootParams.Builder(level.getLevel()).withParameter(LootContextParams.ORIGIN, pos.getCenter());
+            LootParams.Builder lootParams = new LootParams.Builder(level.getLevel()).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos));
             ObjectArrayList<ItemStack> randomItems = lootTable.getRandomItems(lootParams.create(LootContextParamSets.CHEST), pos.asLong());
 
             List<Integer> availableSlots = accessor.invokeGetAvailableSlots(blockEntity, random);

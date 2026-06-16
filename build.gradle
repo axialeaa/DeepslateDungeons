@@ -1,11 +1,12 @@
+//file:noinspection GroovyAssignabilityCheck
 plugins {
-    id "net.fabricmc.fabric-loom" version "${loom_version}"
-    id "maven-publish"
-    id "me.modmuss50.mod-publish-plugin" version "${mpp_version}"
+    id("net.fabricmc.fabric-loom") version "${loom_version}"
+    id("maven-publish")
+    id("me.modmuss50.mod-publish-plugin") version "${mpp_version}"
 }
 
 String mcVersion = project.build_version
-String updateName = "$mod_name $mod_version ($mcVersion) $update_name_suffix"
+String updateName = "$mod_name $mod_version ($mcVersion)$update_name_suffix"
 
 JavaVersion javaVersion = JavaVersion.VERSION_25
 int javaVersionNumber = 25
@@ -37,12 +38,13 @@ publishMods {
         accessToken = providers.gradleProperty("secrets.github_token")
         repository = repository_url
         commitish = "master"
-        tagName = mod_version
+        tagName = "release/$mod_version"
     }
 
     modrinth {
         accessToken = providers.gradleProperty("secrets.modrinth_token")
         projectId = modrinth_project_id
+        projectDescription = rootProject.file("README.md").text
 
         for (String version : modrinth_versions.toString().split(' '))
             minecraftVersions.add(version)
@@ -104,7 +106,18 @@ fabricApi {
 loom {
     runs {
         client {
-            programArgs(["--username", "axialeaa", "--uuid", "dabdffa7-fdd2-4798-9f94-a518c7856163"])
+            programArguments.addAll(
+                "--username",
+                "axialeaa",
+                "--uuid",
+                "dabdffa7-fdd2-4798-9f94-a518c7856163"
+            )
+            jvmArguments.addAll(
+                "-XX:+UseG1GC", // cannot use ZGC for enhanced class redef
+                "-XX:+UseCompactObjectHeaders",
+                "-XX:+UseStringDeduplication",
+                "-XX:+AllowEnhancedClassRedefinition"
+            )
         }
     }
 }
@@ -118,7 +131,9 @@ java {
 
 jar {
     from("LICENSE") {
-        rename { "${it}_${project.base.archivesName.get()}"}
+        rename {
+            "${it}_${project.base.archivesName.get()}"
+        }
     }
 }
 
