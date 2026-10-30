@@ -1,0 +1,4 @@
+classTweaker v2 official
+
+accessible method net/minecraft/world/level/storage/loot/LootTable shuffleAndSplitItems (Lit/unimi/dsi/fastutil/objects/ObjectArrayList;ILnet/minecraft/util/RandomSource;)V
+accessible method net/minecraft/world/level/storage/loot/LootTable getAvailableSlots (Lnet/minecraft/world/Container;Lnet/minecraft/util/RandomSource;)Ljava/util/List;

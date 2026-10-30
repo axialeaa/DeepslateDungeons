@@ -3,7 +3,7 @@
     "block.deepslate-dungeons.infested_cobbled_deepslate": "Infested Cobbled Deepslate",
     "block.deepslate-dungeons.infested_cracked_deepslate_bricks": "Infested Cracked Deepslate Bricks",
     "block.deepslate-dungeons.infested_deepslate_bricks": "Infested Deepslate Bricks",
-    "gamerule.category.deepslate-dungeons.gamerules": "Deepslate Dungeons",
+    "gamerule.category.deepslate-dungeons.gamerule_category": "Deepslate Dungeons",
     "gamerule.deepslate-dungeons.chiseled_bookshelves_in_library": "Whether stronghold libraries generate chiseled bookshelves",
     "gamerule.deepslate-dungeons.dungeon_origin_y_threshold": "The max Y level deep dungeon variants generate at",
     "gamerule.deepslate-dungeons.stronghold_convert_oak": "Whether deep stronghold variants replace oak with dark oak",

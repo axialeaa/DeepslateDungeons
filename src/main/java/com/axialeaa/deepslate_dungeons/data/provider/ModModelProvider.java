@@ -7,10 +7,12 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import org.jspecify.annotations.NonNull;
+import net.minecraft.world.level.block.InfestedBlock;
+import survivalblock.atmosphere.registrar.wrapper.BlockPresenter;
 
-import static com.axialeaa.deepslate_dungeons.data.registry.ModBlocks.*;
+import static com.axialeaa.deepslate_dungeons.registry.ModBlocks.*;
+import static net.minecraft.client.data.models.BlockModelGenerators.*;
+import static net.minecraft.world.level.block.Blocks.*;
 
 public class ModModelProvider extends FabricModelProvider {
 
@@ -19,21 +21,21 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(@NonNull BlockModelGenerators generators) {
-        infestedDeepslate(generators, Blocks.COBBLED_DEEPSLATE, INFESTED_COBBLED_DEEPSLATE);
-        infestedDeepslate(generators, Blocks.DEEPSLATE_BRICKS, INFESTED_DEEPSLATE_BRICKS);
-        infestedDeepslate(generators, Blocks.CRACKED_DEEPSLATE_BRICKS, INFESTED_CRACKED_DEEPSLATE_BRICKS);
-        infestedDeepslate(generators, Blocks.CHISELED_DEEPSLATE, INFESTED_CHISELED_DEEPSLATE);
+    public void generateBlockStateModels(BlockModelGenerators generators) {
+        infestedDeepslate(generators, COBBLED_DEEPSLATE, INFESTED_COBBLED_DEEPSLATE);
+        infestedDeepslate(generators, DEEPSLATE_BRICKS, INFESTED_DEEPSLATE_BRICKS);
+        infestedDeepslate(generators, CRACKED_DEEPSLATE_BRICKS, INFESTED_CRACKED_DEEPSLATE_BRICKS);
+        infestedDeepslate(generators, CHISELED_DEEPSLATE, INFESTED_CHISELED_DEEPSLATE);
     }
+
+	private static void infestedDeepslate(BlockModelGenerators generators, Block host, BlockPresenter<InfestedBlock> block) {
+		Identifier model = ModelLocationUtils.getModelLocation(host);
+
+		generators.blockStateOutput.accept(createSimpleBlock(block.get(), plainVariant(model)));
+		generators.registerSimpleItemModel(block.asItem(), model);
+	}
 
     @Override
-    public void generateItemModels(@NonNull ItemModelGenerators generators) {}
-
-    private static void infestedDeepslate(BlockModelGenerators generators, Block from, Block block) {
-        Identifier id = ModelLocationUtils.getModelLocation(from);
-
-        generators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(id)));
-        generators.registerSimpleItemModel(block, id);
-    }
+    public void generateItemModels(ItemModelGenerators generators) {}
 
 }

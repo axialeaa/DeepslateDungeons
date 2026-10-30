@@ -1,7 +1,7 @@
 package com.axialeaa.deepslate_dungeons.mixin;
 
-import com.axialeaa.deepslate_dungeons.ConversionHelper;
-import com.axialeaa.deepslate_dungeons.data.registry.ModGameRules;
+import com.axialeaa.deepslate_dungeons.util.Conversions;
+import com.axialeaa.deepslate_dungeons.registry.ModGameRules;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,7 +20,7 @@ public class StrongholdPieceMixin extends StructurePieceImplMixin {
         GameRules gameRules = level.getLevel().getGameRules();
 
         if (this.boundingBox.minY() <= gameRules.get(ModGameRules.STRONGHOLD_ROOM_Y_THRESHOLD))
-            blockState = ConversionHelper.getDeepStrongholdVariant(gameRules, blockState.getBlock()).withPropertiesOf(blockState);
+            blockState = Conversions.getDeepStrongholdVariant(gameRules, blockState.getBlock()).withPropertiesOf(blockState);
 
         super.placeBlockImpl(level, blockState, x, y, z, chunkBB, original);
     }

@@ -1,7 +1,6 @@
-package com.axialeaa.deepslate_dungeons;
+package com.axialeaa.deepslate_dungeons.util;
 
-import com.axialeaa.deepslate_dungeons.data.registry.ModLootTables;
-import com.axialeaa.deepslate_dungeons.mixin.bookshelf.LootTableAccessor;
+import com.axialeaa.deepslate_dungeons.registry.ModLootTables;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,9 +21,11 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public final class ChiseledBookShelfHelper {
+public final class ChiseledBookshelfLootUtils {
 
-    public static BlockState getBlockState(Direction facing, Mirror mirror, Rotation rotation) {
+	private ChiseledBookshelfLootUtils() {}
+
+	public static BlockState getBlockState(Direction facing, Mirror mirror, Rotation rotation) {
         BlockState blockState = Blocks.CHISELED_BOOKSHELF.defaultBlockState().setValue(ChiseledBookShelfBlock.FACING, facing);
 
         if (mirror != Mirror.NONE)
@@ -54,16 +55,14 @@ public final class ChiseledBookShelfHelper {
 
     private static void setLoot(WorldGenLevel level, MinecraftServer server, BlockPos pos, ChiseledBookShelfBlockEntity blockEntity, RandomSource random) {
         LootTable lootTable = server.reloadableRegistries().getLootTable(ModLootTables.STRONGHOLD_LIBRARY_BOOKSHELF);
+		LootParams.Builder lootParams = new LootParams.Builder(level.getLevel()).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos));
 
-        if (lootTable instanceof LootTableAccessor accessor) {
-            LootParams.Builder lootParams = new LootParams.Builder(level.getLevel()).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos));
-            ObjectArrayList<ItemStack> randomItems = lootTable.getRandomItems(lootParams.create(LootContextParamSets.CHEST), pos.asLong());
+		ObjectArrayList<ItemStack> randomItems = lootTable.getRandomItems(lootParams.create(LootContextParamSets.CHEST), pos.asLong());
+		List<Integer> availableSlots = lootTable.getAvailableSlots(blockEntity, random);
 
-            List<Integer> availableSlots = accessor.invokeGetAvailableSlots(blockEntity, random);
-            accessor.invokeShuffleAndSplitItems(randomItems, availableSlots.size(), random);
+		lootTable.shuffleAndSplitItems(randomItems, availableSlots.size(), random);
 
-            setLoot(level, pos, blockEntity, randomItems, availableSlots);
-        }
+		setLoot(level, pos, blockEntity, randomItems, availableSlots);
     }
 
     private static void setLoot(WorldGenLevel level, BlockPos pos, ChiseledBookShelfBlockEntity blockEntity, ObjectArrayList<ItemStack> randomItems, List<Integer> availableSlots) {

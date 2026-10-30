@@ -1,7 +1,7 @@
 package com.axialeaa.deepslate_dungeons.mixin.bookshelf;
 
-import com.axialeaa.deepslate_dungeons.ChiseledBookShelfHelper;
-import com.axialeaa.deepslate_dungeons.data.registry.ModGameRules;
+import com.axialeaa.deepslate_dungeons.util.ChiseledBookshelfLootUtils;
+import com.axialeaa.deepslate_dungeons.registry.ModGameRules;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -50,12 +50,12 @@ public abstract class LibraryMixin extends StructurePiece {
 
     @Unique
     private void generateBookshelfBox(WorldGenLevel worldGenLevel, BoundingBox boundingBox, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, RandomSource randomSource) {
-        MinecraftServer server = worldGenLevel.getServer();
+        MinecraftServer server = worldGenLevel.getLevel().getServer();
 
         Direction facing = minX == WEST_OUTER_X ? Direction.EAST : Direction.WEST;
-        BlockState blockState = ChiseledBookShelfHelper.getBlockState(facing, this.getMirror(), this.getRotation());
+        BlockState blockState = ChiseledBookshelfLootUtils.getBlockState(facing, this.getMirror(), this.getRotation());
 
-        ChiseledBookShelfHelper.generate(worldGenLevel, server, blockState, boundingBox, minX, minY, minZ, maxX, maxY, maxZ, this::getWorldPos, randomSource);
+        ChiseledBookshelfLootUtils.generate(worldGenLevel, server, blockState, boundingBox, minX, minY, minZ, maxX, maxY, maxZ, this::getWorldPos, randomSource);
     }
 
 }

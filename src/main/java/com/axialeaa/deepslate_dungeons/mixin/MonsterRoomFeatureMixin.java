@@ -1,6 +1,6 @@
 package com.axialeaa.deepslate_dungeons.mixin;
 
-import com.axialeaa.deepslate_dungeons.data.registry.ModGameRules;
+import com.axialeaa.deepslate_dungeons.registry.ModGameRules;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
@@ -20,7 +20,7 @@ public class MonsterRoomFeatureMixin {
         @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;COBBLESTONE:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.GETSTATIC),
         @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;MOSSY_COBBLESTONE:Lnet/minecraft/world/level/block/Block;", opcode = Opcodes.GETSTATIC)
     })
-    private Block convertCobblestone(Block original, @Local(name = "origin") BlockPos origin, @Local(name = "level") WorldGenLevel level) {
+    private Block convertCobblestone(Block original, @Local(name = "origin", argsOnly = true) BlockPos origin, @Local(name = "level", argsOnly = true) WorldGenLevel level) {
         GameRules gameRules = level.getLevel().getGameRules();
         int threshold = gameRules.get(ModGameRules.DUNGEON_ORIGIN_Y_THRESHOLD);
 

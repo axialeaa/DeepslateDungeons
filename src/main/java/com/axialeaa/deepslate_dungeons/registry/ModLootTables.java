@@ -1,4 +1,4 @@
-package com.axialeaa.deepslate_dungeons.data.registry;
+package com.axialeaa.deepslate_dungeons.registry;
 
 import com.axialeaa.deepslate_dungeons.DeepslateDungeons;
 import net.minecraft.core.registries.Registries;
@@ -9,8 +9,10 @@ public final class ModLootTables {
 
     public static final ResourceKey<LootTable> STRONGHOLD_LIBRARY_BOOKSHELF = create("chests/stronghold_library_bookshelf");
 
-    public static ResourceKey<LootTable> create(String path) {
-        return DeepslateDungeons.resourceKey(Registries.LOOT_TABLE, path);
+	private ModLootTables() {}
+
+	public static ResourceKey<LootTable> create(String path) {
+        return ResourceKey.create(Registries.LOOT_TABLE, DeepslateDungeons.id(path));
     }
 
 }
